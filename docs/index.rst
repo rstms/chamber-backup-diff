@@ -1,5 +1,5 @@
 Welcome to chamber-backup-diff's documentation!
-======================================
+===============================================
 
 .. toctree::
    :maxdepth: 2
@@ -9,8 +9,6 @@ Welcome to chamber-backup-diff's documentation!
    cli
    installation
    modules
-   contributing
-   history
 
 Indices and tables
 ==================

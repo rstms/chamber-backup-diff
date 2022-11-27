@@ -109,4 +109,6 @@ ENV/
 .dist
 .timestamp
 .lint
-
+.project
+cruft/
+tests/data/???.tgz

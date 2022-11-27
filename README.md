@@ -29,3 +29,14 @@ This package was created with Cookiecutter and `rstms/cookiecutter-python-cli`, 
 [audreyr/cookiecutter](https://github.com/audreyr/cookiecutter)
 [audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)
 [rstms/cookiecutter-python-cli](https://github.com/rstms/cookiecutter-python-cli)
+```
+Usage: cbdiff [OPTIONS] OLD NEW
+
+  diff contents of chamber backup tarballs
+
+Options:
+  --version                Show the version and exit.
+  -d, --debug              debug mode
+  --shell-completion TEXT  configure shell completion
+  --help                   Show this message and exit.
+```

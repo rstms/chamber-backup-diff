@@ -21,7 +21,8 @@ classifiers = [
 dynamic = ["version", "description"] 
 
 dependencies = [
-  "click"
+  "click",
+  "pdbpp"
 ]
 
 [tool.flit.module]
@@ -29,6 +30,7 @@ name = "chamber_backup_diff"
 
 [project.optional-dependencies]
 dev = [
+  "attr",
   "black",
   "bump2version",
   "coverage",
@@ -38,7 +40,8 @@ dev = [
   "pytest",
   "python-box",
   "toml",
-  "tox"
+  "tox",
+  "pytest-datadir"
 ]
 docs = [
   "m2r2",

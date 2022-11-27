@@ -6,11 +6,10 @@ from pathlib import Path
 import click
 import click.core
 
-from .version import __version__, __timestamp__
+from .diff import ChamberDiff
 from .exception_handler import ExceptionHandler
-
-
 from .shell import _shell_completion
+from .version import __timestamp__, __version__
 
 header = f"{__name__.split('.')[0]} v{__version__} {__timestamp__}"
 
@@ -20,29 +19,45 @@ def _ehandler(ctx, option, debug):
     ctx.obj["debug"] = debug
 
 
-
-@click.group("cbdiff", context_settings={"auto_envvar_prefix": "CBDIFF"})
+@click.command("cbdiff", context_settings={"auto_envvar_prefix": "CBDIFF"})
 @click.version_option(message=header)
-@click.option("-d", "--debug", is_eager=True, is_flag=True, callback=_ehandler, help="debug mode")
-@click.option("--shell-completion", is_flag=False, flag_value="[auto]", callback=_shell_completion, help="configure shell completion")
+@click.option(
+    "-d",
+    "--debug",
+    is_eager=True,
+    is_flag=True,
+    callback=_ehandler,
+    help="debug mode",
+)
+@click.option(
+    "--shell-completion",
+    is_flag=False,
+    flag_value="[auto]",
+    callback=_shell_completion,
+    help="configure shell completion",
+)
+@click.option(
+    "-o", "--old-name", type=str, default='old', help="name of old tarball"
+)
+@click.option(
+    "-O", "--old-prefix", type=str, default=None, help="old channel prefix"
+)
+@click.option(
+    "-n", "--new-name", type=str, default='new', help="name of new tarball"
+)
+@click.option(
+    "-N", "--new-prefix", type=str, default=None, help="new channel prefix"
+)
+@click.argument(
+    "old-tarball", type=click.Path(dir_okay=False, readable=True, path_type=Path)
+)
+@click.argument(
+    "new-tarball", type=click.Path(dir_okay=False, readable=True, path_type=Path)
+)
 @click.pass_context
-def cli(ctx, debug, shell_completion):
-    """chamber_backup_diff top-level help"""
-    pass
-
-@cli.command
-@click.option("-r", "--raises", type=str, show_envvar=True, help='example option')
-@click.option("-f", "--flag", is_flag=True, help='example flag option')
-@click.option("-i", "--input-file", type=click.Path(dir_okay=False, readable=True, exists=True, path_type=Path), help="input file")
-@click.option("-o", "--output-file", type=click.Path(dir_okay=False, writable=True, exists=False, path_type=Path), help="output file")
-@click.argument('input', type=click.File('r'))
-@click.argument('output', type=click.File('w'), required=False, default='-')
-@click.pass_context
-def action(ctx, raises, flag, input_file, output_file, input, output):
-    """action command help"""
-
-    if raises == "exception":
-        raise RuntimeError(raises)
+def cli(ctx, debug, shell_completion, old_name, old_prefix, new_name, new_prefix, old_tarball, new_tarball):
+    """diff contents of chamber backup tarballs"""
+    ChamberDiff().compare(old_name, old_prefix, old_tarball, new_name, new_prefix, new_tarball)
 
 
 if __name__ == "__main__":
