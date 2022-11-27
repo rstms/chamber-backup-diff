@@ -68,15 +68,17 @@ def test_diff_tarballs(shared_datadir, untar, lines, run):
     for line in diff_lines:
         print(line)
 
+
 def test_diff_object(shared_datadir):
     d = ChamberDiff()
     old = shared_datadir / "old.tgz"
     new = shared_datadir / "new.tgz"
     # name, profile, tarball, name, profile, tarball
-    d.compare("old", 'testnet', old,  "new", 'testnet', new)
+    d.compare("old", "testnet", old, "new", "testnet", new)
+
 
 def test_diff_object_none(shared_datadir):
     d = ChamberDiff()
     old = shared_datadir / "old.tgz"
     new = shared_datadir / "new.tgz"
-    d.compare('old', None, old, 'new', None, new)
+    d.compare("old", None, old, "new", None, new)

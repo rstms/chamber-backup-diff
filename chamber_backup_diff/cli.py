@@ -37,27 +37,41 @@ def _ehandler(ctx, option, debug):
     help="configure shell completion",
 )
 @click.option(
-    "-o", "--old-name", type=str, default='old', help="name of old tarball"
+    "-o", "--old-name", type=str, default="old", help="name of old tarball"
 )
 @click.option(
     "-O", "--old-prefix", type=str, default=None, help="old channel prefix"
 )
 @click.option(
-    "-n", "--new-name", type=str, default='new', help="name of new tarball"
+    "-n", "--new-name", type=str, default="new", help="name of new tarball"
 )
 @click.option(
     "-N", "--new-prefix", type=str, default=None, help="new channel prefix"
 )
 @click.argument(
-    "old-tarball", type=click.Path(dir_okay=False, readable=True, path_type=Path)
+    "old-tarball",
+    type=click.Path(dir_okay=False, readable=True, path_type=Path),
 )
 @click.argument(
-    "new-tarball", type=click.Path(dir_okay=False, readable=True, path_type=Path)
+    "new-tarball",
+    type=click.Path(dir_okay=False, readable=True, path_type=Path),
 )
 @click.pass_context
-def cli(ctx, debug, shell_completion, old_name, old_prefix, new_name, new_prefix, old_tarball, new_tarball):
+def cli(
+    ctx,
+    debug,
+    shell_completion,
+    old_name,
+    old_prefix,
+    new_name,
+    new_prefix,
+    old_tarball,
+    new_tarball,
+):
     """diff contents of chamber backup tarballs"""
-    ChamberDiff().compare(old_name, old_prefix, old_tarball, new_name, new_prefix, new_tarball)
+    ChamberDiff().compare(
+        old_name, old_prefix, old_tarball, new_name, new_prefix, new_tarball
+    )
 
 
 if __name__ == "__main__":

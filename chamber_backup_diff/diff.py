@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import tarfile
 import json
+import tarfile
 from pathlib import Path
 from subprocess import run
 from tempfile import TemporaryDirectory
@@ -29,9 +29,9 @@ class ChamberDiff:
             self.rewrite(filename)
             channel = filename.stem
             if prefix is None:
-                prefix, _, _ = channel.partition('.')
+                prefix, _, _ = channel.partition(".")
             if channel.startswith(prefix):
-                profile = channel[len(prefix)+1:]
+                profile = channel[len(prefix) + 1 :]  # noqa: E203
                 self.channels.setdefault(profile, {})
                 self.channels[profile][name] = str(filename)
 
@@ -64,19 +64,21 @@ class ChamberDiff:
         print("-" * 70)
 
     def channel_path(self, path):
-        if path != 'NONE':
+        if path != "NONE":
             path = Path(path)
             path = str(path.relative_to(path.parent.parent))
         return path
 
     def report(self, old_name, new_name):
         print()
-        footer=False
+        footer = False
         for channel, config in self.channels.items():
             if len(config.keys()) == 1:
                 self.print_line()
-                footer=True
-                print(f"{self.channel_path(config.get(old_name, 'NONE'))} != {self.channel_path(config.get(new_name, 'NONE'))}")
+                footer = True
+                print(
+                    f"{self.channel_path(config.get(old_name, 'NONE'))} != {self.channel_path(config.get(new_name, 'NONE'))}"
+                )
                 key = list(config.keys())[0]
                 print(f"only in {key}:")
                 print(f"{channel=}")
@@ -86,8 +88,10 @@ class ChamberDiff:
                 proc = run(cmd, capture_output=True, text=True)
                 if proc.returncode != 0:
                     self.print_line()
-                    footer=True
-                    print(f"{self.channel_path(config[old_name])} != {self.channel_path(config[new_name])}")
+                    footer = True
+                    print(
+                        f"{self.channel_path(config[old_name])} != {self.channel_path(config[new_name])}"
+                    )
                     print(proc.stdout)
             else:
                 print("error: unexpected {config=}")
