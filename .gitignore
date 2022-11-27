@@ -111,4 +111,3 @@ ENV/
 .lint
 .project
 cruft/
-tests/data/???.tgz
